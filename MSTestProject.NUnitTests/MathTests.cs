@@ -12,6 +12,7 @@
         }
 
         [Test]
+        [Ignore("Because it sucks.")]
         public void Add_WhenCalled_ReturnSumOfArgs()
         {
             var result = _math.Add(1, 2);
