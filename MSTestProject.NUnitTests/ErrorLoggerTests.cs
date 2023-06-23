@@ -19,5 +19,14 @@ namespace MSTestProject.NUnitTests
 
             Assert.That(_logger.LastError, Is.EqualTo("a"));
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Log_InvalidError_ThrowArgumentNullException(string error)
+        {
+            Assert.That(() => _logger.Log(error), Throws.ArgumentNullException);
+        }
     }
 }
