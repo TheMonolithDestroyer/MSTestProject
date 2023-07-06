@@ -30,5 +30,26 @@
 
             Assert.That(result, Is.EqualTo(expectedResult));
         }
+
+        [Test]
+        public void GetOddNumbers_LimitIsGreaterThanZero_ReturnOddNumbersUpToLimit()
+        {
+            var result = _math.GetOddNumbers(5);
+
+            // Specific
+            //Assert.That(result, Is.Not.Empty);
+
+            // More general
+            //Assert.That(result.Count(), Is.EqualTo(3));
+
+            // Right way
+            // This way is time consuming and not productive
+            //Assert.That(result, Does.Contain(1));
+            //Assert.That(result, Does.Contain(3));
+            //Assert.That(result, Does.Contain(5));
+
+            // Preferred way
+            Assert.That(result, Is.EquivalentTo(new[] { 1, 3, 5 }));
+        }
     }
 }
