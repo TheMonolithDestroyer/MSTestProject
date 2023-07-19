@@ -6,9 +6,14 @@ namespace MSTestProject.Mocking
     public class VideoService
     {
         private IFileReader _fileReader;
-        public VideoService(IFileReader fileReader = null)
+        IVideoServiceRepository _repository;
+
+        public VideoService(
+            IFileReader fileReader = null, 
+            IVideoServiceRepository repository = null)
         {
             _fileReader = fileReader ?? new FileReader();
+            _repository = repository ?? new VideoServiceRepository();
         }
 
         public string ReadVideoTitle()
@@ -25,10 +30,9 @@ namespace MSTestProject.Mocking
         {
             var videoIds = new List<int>();
 
-            using var context = new VideoContext();
-            var videos = context.Videos.Where(i => !i.IsProcessed).Select(i => i.Id).ToList();
+            var ids = _repository.ListUnprocessedVideoIds();
 
-            videoIds.AddRange(videos);
+            videoIds.AddRange(ids);
 
             return string.Join(",", videoIds);
         }
